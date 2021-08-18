@@ -5,7 +5,7 @@
         "package": "Starscream",
         "repositoryURL": "https://github.com/emersonsoftware/Starscream",
         "state": {
-          "branch": "errSSLClosedNoNotify",
+          "branch": "master",
           "revision": "098f4fba787f43b27cb0db77464c52443cf7d3df",
           "version": null
         }
