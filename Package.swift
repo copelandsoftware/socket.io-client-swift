@@ -8,7 +8,7 @@ let package = Package(
         .library(name: "SocketIO", targets: ["SocketIO"])
     ],
     dependencies: [
-        .package(url: "https://github.com/emersonsoftware/Starscream", .branch("errSSLClosedNoNotify")),
+        .package(url: "https://github.com/emersonsoftware/Starscream", .branch("master")),
     ],
     targets: [
         .target(name: "SocketIO", dependencies: ["Starscream"]),
