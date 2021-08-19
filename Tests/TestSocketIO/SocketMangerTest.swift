@@ -57,7 +57,44 @@ class SocketMangerTest : XCTestCase {
         manager.fakeConnecting()
         manager.fakeConnecting(toNamespace: "/swift")
 
+    }
+
+    func testManagerDoesNotCallConnectWhenConnectingWithLessThanOneReconnect() {
+        setUpSockets()
+        
+        let expect = expectation(description: "The manager should call not connect on the default socket")
+        expect.isInverted = true
+        
+        let engine = TestEngine(client: manager, url: manager.socketURL, options: nil)
+        
+        engine.onConnect = {
+            expect.fulfill()
+        }
+        manager.setTestStatus(.connecting)
+        manager.setCurrentReconnect(currentReconnect: 0)
+        manager.engine = engine
+        
+        manager.connect()
+
         waitForExpectations(timeout: 0.3)
+    }
+    
+    func testManagerCallConnectWhenConnectingAndMoreThanOneReconnect() {
+        setUpSockets()
+        
+        let expect = expectation(description: "The manager should call connect on the default socket")
+        let engine = TestEngine(client: manager, url: manager.socketURL, options: nil)
+        
+        engine.onConnect = {
+            expect.fulfill()
+        }
+        manager.setTestStatus(.connecting)
+        manager.setCurrentReconnect(currentReconnect: 1)
+        manager.engine = engine
+        
+        manager.connect()
+
+        waitForExpectations(timeout: 0.8)
     }
 
     func testManagerCallsDisconnect() {
@@ -154,6 +191,10 @@ public enum ManagerExpectation: String {
 }
 
 public class TestManager: SocketManager {
+    public func setCurrentReconnect(currentReconnect: Int) {
+        self.currentReconnectAttempt = currentReconnect
+    }
+    
     public override func disconnect() {
         setTestStatus(.disconnected)
     }
