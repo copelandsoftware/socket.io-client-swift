@@ -59,7 +59,7 @@ class SocketMangerTest : XCTestCase {
 
     }
 
-    func testManagerDoesNotCallConnectWhenConnectingWithLessThanOneReconnect() {
+    func testManagerDoesNotCallConnectWhenConnectingWithLessThanOneReconnectOnDefault() {
         setUpSockets()
         
         let expect = expectation(description: "The manager should call not connect on the default socket")
@@ -79,7 +79,7 @@ class SocketMangerTest : XCTestCase {
         waitForExpectations(timeout: 0.3)
     }
     
-    func testManagerCallConnectWhenConnectingAndMoreThanOneReconnect() {
+    func testManagerCallConnectWhenConnectingAndMoreThanOneReconnectOnDefault() {
         setUpSockets()
         
         let expect = expectation(description: "The manager should call connect on the default socket")
@@ -97,7 +97,7 @@ class SocketMangerTest : XCTestCase {
         waitForExpectations(timeout: 0.8)
     }
 
-    func testManagerDoesNotCallConnectWhenConnectingWithLessThanOneReconnect() {
+    func testManagerDoesNotCallConnectWhenConnectingWithLessThanOneReconnectOnEngine() {
         setUpSockets()
         
         let expect = expectation(description: "The manager should not call connect on the engine")
@@ -117,7 +117,7 @@ class SocketMangerTest : XCTestCase {
         waitForExpectations(timeout: 0.3)
     }
     
-    func testManagerCallConnectWhenConnectingAndMoreThanOneReconnect() {
+    func testManagerCallConnectWhenConnectingAndMoreThanOneReconnectOnEngine() {
         setUpSockets()
         
         let expect = expectation(description: "The manager should call connect on the engine")
